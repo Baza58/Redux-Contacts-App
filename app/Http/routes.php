@@ -1,0 +1,33 @@
+
+<?php
+
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/home', 'HomeController@getHome');
+Route::get('/api/contacts', 'HomeController@getContacts');
+Route::post('/api/contacts/create', 'HomeController@postCreateContact');
+Route::get('/api/contacts/{name}', 'HomeController@getSingleContact');
+Route::delete('/api/contacts/{name}/delete', 'HomeController@deleteContact');
+Route::put('/api/contacts/{name}/edit', 'HomeController@putEditContact');
+
+Route::any('/home', function () {
+    return view('home');
+});
+
+Route::any('/home/contacts', function () {
+    return view('home');
+});
+
+Route::any('/home/contacts/{id}', function () {
+    return view('home');
+});
