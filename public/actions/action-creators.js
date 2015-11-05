@@ -1,9 +1,15 @@
 import * as Actions from '../constants/contacts-actions.js';
 import history from '../components/history';
 
-export function initRequest() {
+export function showSpinner() {
 	return {
 		type: Actions.SHOW_SPINNER
+	};
+}
+
+export function hideSpinner() {
+	return {
+		type: Actions.HIDE_SPINNER
 	};
 }
 
@@ -11,15 +17,14 @@ export function setContacts(contacts) {
 	return {
 		type: Actions.SET_CONTACTS,
 		contacts
-	}
+	};
 }
 
 export function showError(error) {
-	console.log(error);
 	return {
 		type: Actions.SHOW_ERROR,
 		error
-	}
+	};
 }
 
 export function setContact(contact) {
@@ -52,7 +57,7 @@ export function updateContact(contact) {
 
 export function addContact(contact) {
 	return dispatch => {
-		dispatch(initRequest()) 
+		dispatch(showSpinner()) 
 		return $.ajax({
 			method: 'POST',
 			url: '/api/contacts/create',
@@ -61,26 +66,35 @@ export function addContact(contact) {
 			contentType: false
 		})
 			.success(data => { 
-				console.log(data);
-				dispatch(setContact(data))
+				dispatch(setContact(data));
+				dispatch(hideSpinner());
 				history.pushState(null, `/contacts/${data.data.id}`);
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
-	}
+			.fail((jqXHR, textStatus, errorThrown) => {
+				dispatch(showError(textStatus));
+				dispatch(hideSpinner());
+			});
+	};
 }
 
 export function getContacts() {
 	return dispatch => {
-		dispatch(initRequest());
+		dispatch(showSpinner());
 		return $.get('/api/contacts')
-			.success(data => dispatch(setContacts(data)))
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
-		}
+			.success(data => {
+				dispatch(setContacts(data));
+				dispatch(hideSpinner());
+			})
+			.fail((jqXHR, textStatus, errorThrown) => {
+				dispatch(showError(textStatus));
+				dispatch(hideSpinner());
+			});
+		};
 }
 
 export function deleteContact(id) {
 	return dispatch => {
-		dispatch(initRequest());
+		dispatch(showSpinner());
 		return $.ajax({
 			url: `/api/contacts/${id}/delete`,
 			method: 'DELETE',
@@ -88,15 +102,18 @@ export function deleteContact(id) {
 			.success(data => {
 				history.replaceState(null, '/');
 				dispatch(removeContact(id));
-				
+				dispatch(hideSpinner());
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
-	}
+			.fail((jqXHR, textStatus, errorThrown) => {
+				dispatch(showError(textStatus));
+				dispatch(hideSpinner());
+			});
+	};
 }
 
 export function editContact(contact, id) {
 	return dispatch => {
-		dispatch(initRequest());
+		dispatch(showSpinner());
 		return $.ajax({
 			url: `/api/contacts/${id}/edit`,
 			method: 'POST',
@@ -106,7 +123,11 @@ export function editContact(contact, id) {
 		})
 			.success(data => {			
 				dispatch(updateContact(data));
+				dispatch(hideSpinner());
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
-	}
+			.fail((jqXHR, textStatus, errorThrown) => {
+				dispatch(showError(textStatus));
+				dispatch(hideSpinner());
+			});
+	};
 }

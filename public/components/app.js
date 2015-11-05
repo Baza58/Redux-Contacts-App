@@ -5,6 +5,7 @@ import Nav from './nav';
 import Modal from './modal';
 import Header from './header';
 import HomeIndex from './homeIndex';
+import ErrorBox from './errorBox';
 
 export default class App extends Component {
 	render = () => {
@@ -14,6 +15,7 @@ export default class App extends Component {
 			<div>
 				<Nav />
 				<div className="container">
+					<ErrorBox error={contacts.getIn(['error', 'errorMessage'])} show={contacts.getIn(['error', 'showError'])} />
 					<Modal open={contacts.get('showSpinner')} />
 					<Header />
 					<div className="contacts-list-container">

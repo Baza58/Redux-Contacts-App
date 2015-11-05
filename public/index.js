@@ -14,7 +14,6 @@ import { getContacts } from './actions/action-creators';
 const store = configureStore();
 store.dispatch(getContacts());
 
-
 render(
 	<Provider store={store}>
 		<ReduxRouter>
