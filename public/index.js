@@ -9,9 +9,10 @@ import ContactsList from './components/contactsList';
 import Contact from './components/contact';
 import ContactCreateForm from './components/contactCreateForm';
 import './app.sass';
-
+import { getContacts } from './actions/action-creators';
 
 const store = configureStore();
+store.dispatch(getContacts());
 
 
 render(

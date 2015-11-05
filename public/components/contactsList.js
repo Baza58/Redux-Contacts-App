@@ -2,7 +2,7 @@ import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import { valueSeq } from 'immutable';
 
-class ContactsList extends Component {
+export default class ContactsList extends Component {
 	render = () => {
 		const { contacts } = this.props;
 		const nodes = contacts.get('contacts').valueSeq().map((contact, i) => { 
@@ -26,5 +26,3 @@ class ContactsList extends Component {
 
 	}
 }
-
-export default ContactsList;

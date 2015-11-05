@@ -4,5 +4,4 @@ import { useBasename } from 'history';
 const history = useBasename(createHistory)({
 	basename: '/home'
 });
-
 export default history;

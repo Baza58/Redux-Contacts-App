@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Link, IndexLink } from 'react-router';
 
-
-class Contact extends Component {
+export default class Contact extends Component {
 	state = {
 		visible: false,
 		name: '',
@@ -155,5 +154,3 @@ class Contact extends Component {
 		);
 	}
 }
-
-export default Contact;

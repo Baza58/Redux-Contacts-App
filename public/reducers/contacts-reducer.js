@@ -12,50 +12,29 @@ const initialState = Map({
 
 });
 
-function handleResponse(state, action) {
-	return state.set('showSpinner', false).set('contacts', fromJS(action.contacts.data));
-}
-
-function showSpinner(state, action) {
-	return state.set('showSpinner', true);
-}
-
-function showContact(state, action) {
-	return state.set('showSpinner', false).set('contact', state.getIn(['contacts', action.id]));
-}
-
-function editContact(state, action) {
-	
-	return state.set('contact', fromJS(action.contact.data))
-				.set('showSpinner', false)
-				.setIn(['contacts', action.contact.data.id], fromJS(action.contact.data));
-}
-
-function removeContact(state, action) {
-	return state.deleteIn(['contacts', action.id]).set('showSpinner', false);
-}
-
-function addContact(state, action) {
-	return state.set('showSpinner', false).setIn(['contacts', action.contact.data.id], fromJS(action.contact.data));
-}
-
-function contacts(state = initialState, action) {
+export default function contacts(state = initialState, action) {
 	switch(action.type) {
-		case Actions.HANDLE_RESPONSE:
-			return handleResponse(state, action);
-		case Actions.HANDLE_CONTACT:
-			return showContact(state, action);
-		case Actions.INIT_REQUEST:
-			return showSpinner(state, action);
+		case Actions.SET_CONTACTS:
+			return state.set('showSpinner', false).set('contacts', fromJS(action.contacts.data));
+
+		case Actions.SET_CONTACT:
+			return state.set('showSpinner', false).set('contact', state.getIn(['contacts', action.id]));
+
+		case Actions.SHOW_SPINNER:
+			return state.set('showSpinner', true);
+
 		case Actions.EDIT_CONTACT:
-			return editContact(state, action);
+			return state.set('contact', fromJS(action.contact.data))
+						.set('showSpinner', false)
+						.setIn(['contacts', action.contact.data.id], fromJS(action.contact.data));
+
 		case Actions.REMOVE_CONTACT:
-			return removeContact(state, action);
+			return state.deleteIn(['contacts', action.id]).set('showSpinner', false);
+
 		case Actions.ADD_CONTACT:
-			return addContact(state, action);
+			return state.set('showSpinner', false).setIn(['contacts', action.contact.data.id], fromJS(action.contact.data));
+
 		default:
 			return state;
 	}
 }
-
-export default contacts;

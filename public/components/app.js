@@ -6,14 +6,7 @@ import Modal from './modal';
 import Header from './header';
 import HomeIndex from './homeIndex';
 
-class App extends Component {
-
-	componentDidMount = () => {
-		const {actions} = this.props;
-		actions.initLoad();
-		
-	}
-
+export default class App extends Component {
 	render = () => {
 		const { actions, contacts, router } = this.props;
 		
@@ -38,5 +31,3 @@ class App extends Component {
 		);
 	}
 }
-
-export default App;

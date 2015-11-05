@@ -3,23 +3,51 @@ import history from '../components/history';
 
 export function initRequest() {
 	return {
-		type: Actions.INIT_REQUEST
+		type: Actions.SHOW_SPINNER
 	};
 }
 
-export function handleResponse(contacts) {
+export function setContacts(contacts) {
 	return {
-		type: Actions.HANDLE_RESPONSE,
+		type: Actions.SET_CONTACTS,
 		contacts
 	}
 }
 
-export function handleError(error) {
+export function showError(error) {
 	console.log(error);
 	return {
-		type: Actions.HANDLE_ERROR,
+		type: Actions.SHOW_ERROR,
 		error
 	}
+}
+
+export function setContact(contact) {
+	return {
+		type: Actions.ADD_CONTACT,
+		contact
+	};
+}
+
+export function getContact(id) {
+	return {
+		type: Actions.SET_CONTACT,
+		id
+	};
+}
+
+export function removeContact(id) {
+	return {
+		type: Actions.REMOVE_CONTACT,
+		id
+	};
+}
+
+export function updateContact(contact) {
+	return {
+		type: Actions.EDIT_CONTACT,
+		contact
+	};
 }
 
 export function addContact(contact) {
@@ -34,46 +62,20 @@ export function addContact(contact) {
 		})
 			.success(data => { 
 				console.log(data);
-				dispatch(mergeContact(data))
+				dispatch(setContact(data))
 				history.pushState(null, `/contacts/${data.data.id}`);
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(handleError(textStatus)));
+			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
 	}
-}
-
-export function mergeContact(contact) {
-	return {
-		type: Actions.ADD_CONTACT,
-		contact
-	};
 }
 
 export function getContacts() {
 	return dispatch => {
 		dispatch(initRequest());
 		return $.get('/api/contacts')
-			.success(data => dispatch(handleResponse(data)))
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(handleError(textStatus)));
+			.success(data => dispatch(setContacts(data)))
+			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
 		}
-}
-
-export function initLoad() {
-	return dispatch => dispatch(getContacts());
-}
-
-
-export function getContact(id) {
-	return {
-		type: Actions.HANDLE_CONTACT,
-		id
-	};
-}
-
-export function handleContact(contact) {
-	return {
-		type: Actions.HANDLE_CONTACT,
-		contact
-	};
 }
 
 export function deleteContact(id) {
@@ -85,18 +87,11 @@ export function deleteContact(id) {
 		})
 			.success(data => {
 				history.replaceState(null, '/');
-				dispatch(updateDataAfterDelete(id));
+				dispatch(removeContact(id));
 				
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(handleError(textStatus)));
+			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
 	}
-}
-
-export function updateDataAfterDelete(id) {
-	return {
-		type: Actions.REMOVE_CONTACT,
-		id
-	};
 }
 
 export function editContact(contact, id) {
@@ -112,13 +107,6 @@ export function editContact(contact, id) {
 			.success(data => {			
 				dispatch(updateContact(data));
 			})
-			.fail((jqXHR, textStatus, errorThrown) => dispatch(handleError(textStatus)));
+			.fail((jqXHR, textStatus, errorThrown) => dispatch(showError(textStatus)));
 	}
-}
-
-export function updateContact(contact) {
-	return {
-		type: Actions.EDIT_CONTACT,
-		contact
-	};
 }

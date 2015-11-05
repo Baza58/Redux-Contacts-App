@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import history from './history';
 import { pushState } from 'redux-router';
 
-class ContactCreateForm extends Component {
+export default class ContactCreateForm extends Component {
 	onSubmit = (e) => {
 		e.preventDefault();
 		const { name, number, description, file } = this.refs;
@@ -64,5 +64,3 @@ class ContactCreateForm extends Component {
 		);
 	}
 }
-
-export default ContactCreateForm;
