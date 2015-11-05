@@ -78,11 +78,12 @@ export function addContact(contact) {
 }
 
 export function getContacts() {
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(showSpinner());
 		return $.get('/api/contacts')
 			.success(data => {
 				dispatch(setContacts(data));
+				dispatch(getContact(getState().router.params.id));
 				dispatch(hideSpinner());
 			})
 			.fail((jqXHR, textStatus, errorThrown) => {
