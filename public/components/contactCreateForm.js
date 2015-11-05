@@ -9,6 +9,7 @@ class ContactCreateForm extends Component {
 		const { name, number, description, file } = this.refs;
 		const { addContact } = this.props;
 		const fileNode = findDOMNode(file);
+		console.log(fileNode.files[0]);
 		let contact = new FormData();
 		contact.append('name', name.value);
 		contact.append('number', number.value);

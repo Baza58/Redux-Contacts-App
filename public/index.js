@@ -10,14 +10,16 @@ import Contact from './components/contact';
 import ContactCreateForm from './components/contactCreateForm';
 import './app.sass';
 
+
 const store = configureStore();
+
 
 render(
 	<Provider store={store}>
 		<ReduxRouter>
 			<Route path="/" component={App} >
 				<Route path="contacts/create" component={ContactCreateForm} />
-				<Route path="contacts/:name" component={Contact} />
+				<Route path="contacts/:id" component={Contact} />
 			</Route>
 		</ReduxRouter>
 	</Provider>

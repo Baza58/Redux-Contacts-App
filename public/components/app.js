@@ -9,7 +9,9 @@ import HomeIndex from './homeIndex';
 class App extends Component {
 
 	componentDidMount = () => {
-		this.props.actions.initLoad();
+		const {actions} = this.props;
+		actions.initLoad();
+		
 	}
 
 	render = () => {

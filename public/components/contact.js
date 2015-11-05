@@ -12,13 +12,20 @@ class Contact extends Component {
 	}
 
 	componentDidMount = () => {
-		this.props.getContact(this.props.router.params.name);
+		const { router, getContact } = this.props;
+		//TODO: get rid of this
+		setTimeout(() => {
+			getContact(router.params.id);	
+		}, 500);
+		
 	}
 	
 
 	componentWillReceiveProps = (nextProps) => {
-		if (this.props.router.params.name !== nextProps.router.params.name) {
-			this.props.getContact(nextProps.router.params.name);
+		const { router, getContact } = this.props;
+
+		if (router.params.id !== nextProps.router.params.id) {
+			getContact(nextProps.router.params.id);
 			this.setState({
 			visible: false 
 			});
@@ -26,22 +33,22 @@ class Contact extends Component {
 
 	}
 	onClick = (e) => {
-		const { deleteContact } = this.props;
-		deleteContact(this.props.contact.get('id'));
+		const { contact, deleteContact } = this.props;
+		deleteContact(contact.get('id'));
 	}
 
 	onSubmit = (e) => {
 		e.preventDefault();
 		const { name, number, description, file } = this.refs;
-		const { editContact } = this.props;
+		const { contact, editContact } = this.props;
 		const fileNode = findDOMNode(file);
-		let contact = new FormData();
-		contact.append('name', name.value);
-		contact.append('number', number.value);
-		contact.append('description', description.value);
-		contact.append('file', fileNode.files[0]);
+		let contactForm = new FormData();
+		contactForm.append('name', name.value);
+		contactForm.append('number', number.value);
+		contactForm.append('description', description.value);
+		contactForm.append('file', fileNode.files[0]);
 		
-		editContact(contact, this.props.contact.get('id'));
+		editContact(contactForm, contact.get('id'));
 
 		name.value = '';
 		number.value = '';
@@ -61,11 +68,18 @@ class Contact extends Component {
 	}
 
 	changeVisible = (e) => {
+		const { contact } = this.props;
 		this.setState({
 			visible: true,
-			name: this.props.contact.get('name'),
-			number: this.props.contact.get('number'), 
-			description: this.props.contact.get('description'),
+			name: contact.get('name'),
+			number: contact.get('number'), 
+			description: contact.get('description'),
+		});
+	}
+
+	cancelEditing = (e) => {
+		this.setState({
+			visible: false 
 		});
 	}
 
@@ -117,6 +131,8 @@ class Contact extends Component {
 						<input type="file" ref="file" accept="image/*" id="file" />	
 					</div>
 					<input type="submit" className="btn btn-primary" />
+					{' '}
+					<button className="btn btn-danger" onClick={this.cancelEditing}>Cancel</button>
 				</form>
 			</div>
 			);
