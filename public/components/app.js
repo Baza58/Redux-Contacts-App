@@ -16,10 +16,10 @@ export default class App extends Component {
 				<Nav />
 				<div className="container">
 					<ErrorBox error={contacts.getIn(['error', 'errorMessage'])} show={contacts.getIn(['error', 'showError'])} />
-					<Modal open={contacts.get('showSpinner')} />
 					<Header />
 					<div className="contacts-list-container">
 						<ContactsList contacts={contacts} />
+						<Modal open={contacts.get('showSpinner')} />
 						{ cloneElement(this.props.children || <HomeIndex/>, { contacts: contacts ,
 								addContact: actions.addContact, 
 								getContact: actions.getContact, 

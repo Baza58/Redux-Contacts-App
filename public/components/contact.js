@@ -13,13 +13,12 @@ export default class Contact extends Component {
 	componentDidMount = () => {
 		const { router, getContact } = this.props;
 		//TODO: get rid of this
-		setTimeout(() => {
-			getContact(router.params.id);	
-		}, 500);
-		
+		// setTimeout(() => {
+		// 	getContact(router.params.id);	
+		// }, 300);	
+		getContact(router.params.id);	
 	}
 	
-
 	componentWillReceiveProps = (nextProps) => {
 		const { router, getContact } = this.props;
 

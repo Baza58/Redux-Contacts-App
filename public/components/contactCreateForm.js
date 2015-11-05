@@ -4,12 +4,21 @@ import history from './history';
 import { pushState } from 'redux-router';
 
 export default class ContactCreateForm extends Component {
+	state = {
+		showError: false
+	}
+
 	onSubmit = (e) => {
 		e.preventDefault();
 		const { name, number, description, file } = this.refs;
 		const { addContact } = this.props;
 		const fileNode = findDOMNode(file);
-		console.log(fileNode.files[0]);
+		if (fileNode.files[0] && fileNode.files[0].size > 2000000) {
+			return this.setState({
+				showError: true 
+			});
+		}
+
 		let contact = new FormData();
 		contact.append('name', name.value);
 		contact.append('number', number.value);
@@ -57,6 +66,7 @@ export default class ContactCreateForm extends Component {
 					<div className="form-group">	
 						<label htmlFor="file" > Profile picture: </label>
 						<input type="file" ref="file" accept="image/*" id="file" />	
+						<span style={{ 'display': this.state.showError ? 'block' : 'none' }} > File must be smaller than 2MB. </span>
 					</div>
 					<input type="submit" className="btn btn-primary" />
 				</form>

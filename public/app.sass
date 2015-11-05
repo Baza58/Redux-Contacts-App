@@ -6,6 +6,7 @@ body, html
 	display: flex
 	flex-direction: row
 	margin-top: 50px
+	position: relative
 
 aside
 	margin-right: 50px
@@ -16,13 +17,10 @@ nav
 
 .modal
 	display: none
-	justify-content: center
-	align-items: center
-	position: fixed
-	top: 0px
+	position: absolute
+	top: -50px
 	left: 0px
-	right: 0px
-	bottom: 0px
+	transition: all 1s
 	z-index: 10
 
 
@@ -35,6 +33,7 @@ h3
 
 .home-index-heading
 	margin-top: 0px
+
 
 .thumbnail
 	padding: 10px !important
