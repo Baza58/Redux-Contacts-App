@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Link, IndexLink } from 'react-router';
 
 
@@ -31,13 +32,14 @@ class Contact extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const { name, number, description } = this.refs;
+		const { name, number, description, file } = this.refs;
 		const { editContact } = this.props;
-		const contact = {
-			name: name.value,
-			number: number.value,
-			description: description.value
-		}
+		const fileNode = findDOMNode(file);
+		let contact = new FormData();
+		contact.append('name', name.value);
+		contact.append('number', number.value);
+		contact.append('description', description.value);
+		contact.append('file', fileNode.files[0]);
 		
 		editContact(contact, this.props.contact.get('id'));
 
@@ -109,6 +111,10 @@ class Contact extends Component {
 									value={this.state.description}
 									onChange={this.onChange}
 									className="form-control" />
+					</div>
+					<div className="form-group">	
+						<label htmlFor="file" > Profile picture: </label>
+						<input type="file" ref="file" accept="image/*" id="file" />	
 					</div>
 					<input type="submit" className="btn btn-primary" />
 				</form>

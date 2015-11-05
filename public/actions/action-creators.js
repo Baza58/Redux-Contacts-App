@@ -104,8 +104,10 @@ export function editContact(contact, id) {
 		dispatch(initRequest());
 		return $.ajax({
 			url: `/api/contacts/${id}/edit`,
-			method: 'PUT',
-			data: contact
+			method: 'POST',
+			data: contact,
+			processData: false,
+			contentType: false
 		})
 			.success(data => {			
 				dispatch(updateContact(data));

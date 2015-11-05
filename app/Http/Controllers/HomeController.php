@@ -87,11 +87,28 @@ class HomeController extends Controller
     }
     public function putEditContact(Request $request, $id) {
         $user = Auth::user();
-        $user->contacts()->where('id', $id)->update([
-            'name' => $request->name,
-            'number' => $request->number,
-            'description' => $request->description
-        ]);
+       
+        
+        if ($request->file !== 'undefined') {
+            $file = $request->file;
+            $path = '' . base_path() . '/public/pics/' . $user->id;
+            $name = time() . '-' . $file->getClientOriginalName();
+            $file->move($path, $name);
+            $url = "/pics/" . $user->id . '/' . $name;
+            $user->contacts()->where('id', $id)->update([
+                'name' => $request->name,
+                'number' => $request->number,
+                'description' => $request->description,
+                'profile-picture' => $url
+            ]);
+        } else {
+            $user->contacts()->where('id', $id)->update([
+                'name' => $request->name,
+                'number' => $request->number,
+                'description' => $request->description,
+            ]);
+        }
+        
         $contact = $user->contacts()->where('id', $id)->first();
         $array = [];
         $array[$contact['id']] = $contact;

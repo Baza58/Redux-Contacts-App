@@ -18,7 +18,7 @@ Route::get('/api/contacts', 'HomeController@getContacts');
 Route::post('/api/contacts/create', 'HomeController@postCreateContact');
 Route::get('/api/contacts/{name}', 'HomeController@getSingleContact');
 Route::delete('/api/contacts/{name}/delete', 'HomeController@deleteContact');
-Route::put('/api/contacts/{name}/edit', 'HomeController@putEditContact');
+Route::post('/api/contacts/{name}/edit', 'HomeController@putEditContact');
 
 Route::any('/home', 'HomeController@getAuthorize');
 
