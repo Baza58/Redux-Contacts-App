@@ -20,14 +20,8 @@ Route::get('/api/contacts/{name}', 'HomeController@getSingleContact');
 Route::delete('/api/contacts/{name}/delete', 'HomeController@deleteContact');
 Route::put('/api/contacts/{name}/edit', 'HomeController@putEditContact');
 
-Route::any('/home', function () {
-    return view('home');
-});
+Route::any('/home', 'HomeController@getAuthorize');
 
-Route::any('/home/contacts', function () {
-    return view('home');
-});
+Route::any('/home/contacts', 'HomeController@getAuthorize' );
 
-Route::any('/home/contacts/{id}', function () {
-    return view('home');
-});
+Route::any('/home/contacts/{id}', 'HomeController@getAuthorize');

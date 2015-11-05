@@ -19,6 +19,7 @@ class Contacts extends Migration
             $table->string('name');
             $table->integer('number');
             $table->text('description')->nullable();
+            $table->string('profile-picture')->nullable();
             $table->timestamps();
         });
     }

@@ -5,10 +5,14 @@ import { valueSeq } from 'immutable';
 class ContactsList extends Component {
 	render = () => {
 		const { contacts } = this.props;
+		console.log(contacts);
 		const nodes = contacts.get('contacts').valueSeq().map((contact, i) => { 
-			return (
-					<Link to={`/contacts/${contact.get('id')}`}  className="list-group-item" key={i} >{contact.get('name')}</Link>
-			);
+			
+				if (contact) {
+					return <Link to={`/contacts/${contact.get('id')}`}  className="list-group-item" key={i} >{contact.get('name')}</Link>
+				}
+				return;
+			
 		});
 
 		return (

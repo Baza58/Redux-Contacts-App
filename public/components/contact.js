@@ -117,16 +117,15 @@ class Contact extends Component {
 		}
 
 		const { contact } = this.props;
-
 		return (
 			<div className="thumbnail" >
-				<img src="http://placehold.it/100x100" />
+				<img src={contact.get('profile-picture') || 'http://placehold.it/100x100' } className="profile-pic" />
 				<div className="caption">
 					<h3> { contact.get('name') } </h3>
 					<p> { contact.get('number') } </p>
 					<p> { contact.get('description') } </p>
 					<button className="btn btn-default" onClick={this.changeVisible}>Edit contact</button>
-					{'  '}
+					{' '}
 					<button className="btn btn-danger" onClick={this.onClick} >Delete contact</button>
 				</div>
 			</div>

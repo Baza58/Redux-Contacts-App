@@ -1,4 +1,6 @@
 /storage/framework/sessions
+/public/pics
+/database/database.sqlite
 /vendor
 /node_modules/
 Homestead.yaml

@@ -25,8 +25,15 @@ export function handleError(error) {
 export function addContact(contact) {
 	return dispatch => {
 		dispatch(initRequest()) 
-		return $.post('/api/contacts/create', contact)
+		return $.ajax({
+			method: 'POST',
+			url: '/api/contacts/create',
+			data: contact,
+			processData: false,
+			contentType: false
+		})
 			.success(data => { 
+				console.log(data);
 				dispatch(mergeContact(data))
 				history.pushState(null, `/contacts/${data.data.id}`);
 			})
