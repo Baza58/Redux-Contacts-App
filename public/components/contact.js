@@ -16,11 +16,12 @@ class Contact extends Component {
 	
 
 	componentWillReceiveProps = (nextProps) => {
-
-		this.props.getContact(nextProps.router.params.name);
-		this.setState({
+		if (this.props.router.params.name !== nextProps.router.params.name) {
+			this.props.getContact(nextProps.router.params.name);
+			this.setState({
 			visible: false 
-		});
+			});
+		}
 
 	}
 	onClick = (e) => {
@@ -118,12 +119,16 @@ class Contact extends Component {
 		const { contact } = this.props;
 
 		return (
-			<div>
-				<h3> { contact.get('name') } </h3>
-				<p> { contact.get('number') } </p>
-				<p> { contact.get('description') } </p>
-				<button className="btn btn-danger" onClick={this.onClick} >Delete contact</button>
-				<button className="btn btn-default" onClick={this.changeVisible}>Edit contact</button>
+			<div className="thumbnail" >
+				<img src="http://placehold.it/100x100" />
+				<div className="caption">
+					<h3> { contact.get('name') } </h3>
+					<p> { contact.get('number') } </p>
+					<p> { contact.get('description') } </p>
+					<button className="btn btn-default" onClick={this.changeVisible}>Edit contact</button>
+					{'  '}
+					<button className="btn btn-danger" onClick={this.onClick} >Delete contact</button>
+				</div>
 			</div>
 
 		);

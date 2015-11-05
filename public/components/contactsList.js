@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import { valueSeq } from 'immutable';
 
@@ -7,16 +7,18 @@ class ContactsList extends Component {
 		const { contacts } = this.props;
 		const nodes = contacts.get('contacts').valueSeq().map((contact, i) => { 
 			return (
-				<Link key={i} to={`/contacts/${contact.get('id')}`} >{contact.get('name')}</Link>
+					<Link to={`/contacts/${contact.get('id')}`}  className="list-group-item" key={i} >{contact.get('name')}</Link>
 			);
 		});
 
 		return (
 			<aside>
-				<nav>
+				<ul className="list-group" >
 					{nodes}							
-				</nav>
-				{ this.props.children }
+				</ul>
+				 { cloneElement(this.props.children || <div />, {
+				 	contacts: contacts
+				 }) }
 			</aside>
 
 		);
