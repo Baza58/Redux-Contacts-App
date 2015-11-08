@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Link, IndexLink } from 'react-router';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export default class Contact extends Component {
 	state = {
@@ -12,10 +13,6 @@ export default class Contact extends Component {
 
 	componentDidMount = () => {
 		const { router, getContact } = this.props;
-		//TODO: get rid of this
-		// setTimeout(() => {
-		// 	getContact(router.params.id);	
-		// }, 300);	
 		getContact(router.params.id);	
 	}
 	
@@ -153,3 +150,11 @@ export default class Contact extends Component {
 		);
 	}
 }
+
+Contact.propTypes = {
+	contact: ImmutablePropTypes.map.isRequired,
+	editContact: PropTypes.func.isRequired,
+	getContact: PropTypes.func.isRequired,
+	deleteContact: PropTypes.func.isRequired,
+	router: PropTypes.object.isRequired
+};

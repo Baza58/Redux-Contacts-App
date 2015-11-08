@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 const Modal = (props) => {
 	return (
@@ -8,3 +8,7 @@ const Modal = (props) => {
 	);
 }
 export default Modal;
+
+Modal.propTypes = {
+	open: PropTypes.bool.isRequired
+};

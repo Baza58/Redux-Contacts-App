@@ -1,6 +1,7 @@
 import React, { Component, cloneElement } from 'react';
 import { Link } from 'react-router';
 import { valueSeq } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export default class ContactsList extends Component {
 	render = () => {
@@ -25,4 +26,8 @@ export default class ContactsList extends Component {
 		
 
 	}
+}
+
+ContactsList.propTypes = {
+	contacts: ImmutablePropTypes.map.isRequired
 }

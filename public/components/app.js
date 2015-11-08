@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component, cloneElement, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import ContactsList from './contactsList';
 import Nav from './nav';
@@ -6,6 +6,7 @@ import Modal from './modal';
 import Header from './header';
 import HomeIndex from './homeIndex';
 import ErrorBox from './errorBox';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export default class App extends Component {
 	render = () => {
@@ -33,3 +34,9 @@ export default class App extends Component {
 		);
 	}
 }
+
+App.propTypes = {
+	actions: PropTypes.object.isRequired,
+	contacts: ImmutablePropTypes.map.isRequired,
+	router: PropTypes.object.isRequired
+};
