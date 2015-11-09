@@ -22,7 +22,7 @@ export default class App extends Component {
 						<ContactsList contacts={contacts} />
 						<Modal open={contacts.get('showSpinner')} />
 						{ cloneElement(this.props.children || <HomeIndex/>, { contacts: contacts ,
-								addContact: actions.addContact, 
+								addContact: actions.addContactReq, 
 								getContact: actions.getContact, 
 								contact: contacts.get('contact'), 
 								router: router,

@@ -6,3 +6,4 @@ export const SHOW_ERROR = 'SHOW_ERROR';
 export const SET_CONTACTS = 'SET_CONTACTS';
 export const SET_CONTACT = 'SET_CONTACT';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
+export const GET_CONTACT = 'GET_CONTACT';

@@ -1,5 +1,6 @@
 import * as Actions from '../constants/contacts-actions.js';
 import history from '../components/history';
+import $ from 'jquery';
 
 export function showSpinner() {
 	return {
@@ -27,7 +28,7 @@ export function showError(error) {
 	};
 }
 
-export function setContact(contact) {
+export function addContact(contact) {
 	return {
 		type: Actions.ADD_CONTACT,
 		contact
@@ -36,7 +37,7 @@ export function setContact(contact) {
 
 export function getContact(id) {
 	return {
-		type: Actions.SET_CONTACT,
+		type: Actions.GET_CONTACT,
 		id
 	};
 }
@@ -55,7 +56,7 @@ export function updateContact(contact) {
 	};
 }
 
-export function addContact(contact) {
+export function addContactReq(contact) {
 	return dispatch => {
 		dispatch(showSpinner()) 
 		return $.ajax({
@@ -66,7 +67,7 @@ export function addContact(contact) {
 			contentType: false
 		})
 			.success(data => { 
-				dispatch(setContact(data));
+				dispatch(addContact(data));
 				dispatch(hideSpinner());
 				history.pushState(null, `/contacts/${data.data.id}`);
 			})
@@ -80,7 +81,7 @@ export function addContact(contact) {
 export function getContacts() {
 	return (dispatch, getState) => {
 		dispatch(showSpinner());
-		return $.get('/api/contacts')
+		return $.get('http://google.com')
 			.success(data => {
 				dispatch(setContacts(data));
 				dispatch(getContact(getState().router.params.id));

@@ -17,7 +17,7 @@ export default function contacts(state = initialState, action) {
 		case Actions.SET_CONTACTS:
 			return state.set('contacts', fromJS(action.contacts.data));
 
-		case Actions.SET_CONTACT:
+		case Actions.GET_CONTACT:
 			return state.set('contact', state.getIn(['contacts', action.id]));
 
 		case Actions.SHOW_SPINNER:
