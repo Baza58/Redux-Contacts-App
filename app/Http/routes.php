@@ -16,9 +16,9 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@getHome');
 Route::get('/api/contacts', 'HomeController@getContacts');
 Route::post('/api/contacts/create', 'HomeController@postCreateContact');
-Route::get('/api/contacts/{name}', 'HomeController@getSingleContact');
-Route::delete('/api/contacts/{name}/delete', 'HomeController@deleteContact');
-Route::post('/api/contacts/{name}/edit', 'HomeController@putEditContact');
+Route::get('/api/contacts/{id}', 'HomeController@getSingleContact');
+Route::delete('/api/contacts/{id}/delete', 'HomeController@deleteContact');
+Route::post('/api/contacts/{id}/edit', 'HomeController@putEditContact');
 
 Route::any('/home', 'HomeController@getAuthorize');
 

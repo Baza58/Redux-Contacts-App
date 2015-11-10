@@ -5,7 +5,7 @@ import $ from 'jquery';
 export function showSpinner() {
 	return {
 		type: Actions.SHOW_SPINNER
-	};
+	}; 
 }
 
 export function hideSpinner() {
@@ -81,7 +81,7 @@ export function addContactReq(contact) {
 export function getContacts() {
 	return (dispatch, getState) => {
 		dispatch(showSpinner());
-		return $.get('http://google.com')
+		return $.get('/api/contacts')
 			.success(data => {
 				dispatch(setContacts(data));
 				dispatch(getContact(getState().router.params.id));

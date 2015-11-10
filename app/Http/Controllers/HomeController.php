@@ -69,10 +69,10 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getSingleContact($name) {
+    public function getSingleContact($id) {
         $user = Auth::user();
 
-        $contact = $user->contacts()->where('name', $name)->first();
+        $contact = $user->contacts()->where('id', $id)->first();
         return response()->json([
             'data' => $contact
         ]);
@@ -89,7 +89,7 @@ class HomeController extends Controller
         $user = Auth::user();
        
         
-        if ($request->file !== 'undefined') {
+        if ($request->file !== 'undefined' && $request->file != null) {
             $file = $request->file;
             $path = '' . base_path() . '/public/pics/' . $user->id;
             $name = time() . '-' . $file->getClientOriginalName();
@@ -112,6 +112,8 @@ class HomeController extends Controller
         $contact = $user->contacts()->where('id', $id)->first();
         $array = [];
         $array[$contact['id']] = $contact;
+
+
         return response()->json([
             'data' => $contact
         ]);

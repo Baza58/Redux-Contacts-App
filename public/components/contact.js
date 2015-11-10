@@ -9,11 +9,11 @@ export default class Contact extends Component {
 		name: '',
 		number: null,
 		description: '',
-	}
+	} 
 
 	componentDidMount = () => {
 		const { router, getContact } = this.props;
-		getContact(router.params.id);	
+		getContact(router.params.id);
 	}
 	
 	componentWillReceiveProps = (nextProps) => {
@@ -33,6 +33,7 @@ export default class Contact extends Component {
 	}
 
 	onSubmit = (e) => {
+		
 		e.preventDefault();
 		const { name, number, description, file } = this.refs;
 		const { contact, editContact } = this.props;
@@ -125,7 +126,8 @@ export default class Contact extends Component {
 						<label htmlFor="file" > Profile picture: </label>
 						<input type="file" ref="file" accept="image/*" id="file" />	
 					</div>
-					<input type="submit" className="btn btn-primary" />
+					
+					<button ref="submit" className="btn btn-primary submit-btn" onClick={this.onSubmit}>Submit</button>
 					{' '}
 					<button className="btn btn-danger" onClick={this.cancelEditing}>Cancel</button>
 				</form>
@@ -138,12 +140,12 @@ export default class Contact extends Component {
 			<div className="thumbnail" >
 				<img src={contact.get('profile-picture') || 'http://placehold.it/100x100' } className="profile-pic" />
 				<div className="caption">
-					<h3> { contact.get('name') } </h3>
-					<p> { contact.get('number') } </p>
-					<p> { contact.get('description') } </p>
-					<button className="btn btn-default" onClick={this.changeVisible}>Edit contact</button>
+					<h3>{ contact.get('name') }</h3>
+					<p>{ contact.get('number') }</p>
+					<p>{ contact.get('description') }</p>
+					<button className="btn btn-default"  ref="EditBtn" onClick={this.changeVisible}>Edit contact</button>
 					{' '}
-					<button className="btn btn-danger" onClick={this.onClick} >Delete contact</button>
+					<button className="btn btn-danger" ref="deleteBtn" onClick={this.onClick} >Delete contact</button>
 				</div>
 			</div>
 

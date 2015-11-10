@@ -5,7 +5,8 @@ import { pushState } from 'redux-router';
 
 export default class ContactCreateForm extends Component {
 	state = {
-		showError: false
+		showError: false,
+		errorMessage: ''
 	}
 
 	onSubmit = (e) => {
@@ -15,7 +16,14 @@ export default class ContactCreateForm extends Component {
 		const fileNode = findDOMNode(file);
 		if (fileNode.files[0] && fileNode.files[0].size > 2000000) {
 			return this.setState({
-				showError: true 
+				showError: true,
+				errorMessage: 'File must be smaller than 2MB.'
+			});
+		}
+		if ( !name.value || !number.value ) {
+			return this.setState({
+				showError: true,
+				errorMessage: 'Name and number fiels cannot be empty.' 
 			});
 		}
 
@@ -32,9 +40,7 @@ export default class ContactCreateForm extends Component {
 		name.value = '';
 		number.value = '';
 		description.value = '';
-
 	}
-
 	render = () => {
 		return (
 			<div>
@@ -51,7 +57,7 @@ export default class ContactCreateForm extends Component {
 						<label htmlFor="number" >Number:</label>
 						<input 	type="text" 
 								ref="number" 
-								id="number" 
+								id="number"
 								className="form-control" 
 								required />
 					</div>
@@ -66,11 +72,15 @@ export default class ContactCreateForm extends Component {
 					<div className="form-group">	
 						<label htmlFor="file" > Profile picture: </label>
 						<input type="file" ref="file" accept="image/*" id="file" />	
-						<span style={{ 'display': this.state.showError ? 'block' : 'none' }} > File must be smaller than 2MB. </span>
+						<span style={{ 'display': this.state.showError ? 'block' : 'none', 'color': 'red' }} >{this.state.errorMessage}</span>
 					</div>
-					<input type="submit" className="btn btn-primary" />
+					<button className="btn btn-primary" ref="submitBtn" disabled={this.state.disabled} onClick={this.onSubmit} >Submit</button>
 				</form>
 			</div>
 		);
 	}
+}
+
+ContactCreateForm.propTypes = {
+	addContact: React.PropTypes.func.isRequired
 }

@@ -17,9 +17,6 @@ export default class ContactsList extends Component {
 				<ul className="list-group" >
 					{nodes}							
 				</ul>
-				 { cloneElement(this.props.children || <div />, {
-				 	contacts: contacts
-				 }) }
 			</aside>
 
 		);
