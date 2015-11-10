@@ -55,14 +55,15 @@ class HomeController extends Controller
                 'profile-picture' => $url
             ]);
         } else {
-            $user->contacts()->create([
+            $db = $user->contacts()->create([
                 'name' => $request->name,
                 'number' => $request->number,
                 'description' => $request->description,
             ]);
+
         }
         
-        $contact = $user->contacts()->where('name', $request->name)->first();
+        $contact = $user->contacts()->where('id', $db->id)->first();
 
         return response()->json([
             'data' => $contact
