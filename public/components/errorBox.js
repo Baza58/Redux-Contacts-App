@@ -1,10 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
-const ErrorBox = (props) => {
-	return <div className="alert alert-danger" style={{ 'display': props.show ? 'block' : 'none' }}  > { props.error ? props.error : '' } </div>
+export default class ErrorBox extends Component {
+	render = () => {
+		const { show, error } = this.props;
+		return <div className="alert alert-danger" style={{ 'display': show ? 'block' : 'none' }}  > { error ? error : '' } </div>
+	}
 }
-
-export default ErrorBox;
 
 ErrorBox.propTypes = {
 	error: PropTypes.string.isRequired,

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const HomeIndex = (props) => {
-	return <h4 className="home-index-heading" >Choose contact from the menu or create new</h4>
+export default class HomeIndex extends Component {
+	render = () => {
+		return <h4 className="home-index-heading" >Choose contact from the menu or create new</h4>	
+	}
 }
-export default HomeIndex;

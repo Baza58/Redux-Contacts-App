@@ -1,5 +1,4 @@
 import React, { Component, cloneElement, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
 import ContactsList from './contactsList';
 import Nav from './nav';
 import Modal from './modal';
